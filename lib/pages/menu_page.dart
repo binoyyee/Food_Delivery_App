@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+//import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:food_delivery_app/components/button.dart';
@@ -94,7 +94,7 @@ class _MenuPageState extends State<MenuPage> {
     final foodMenu = shop.foodMenu;
     return Scaffold(
       extendBody: true,
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       bottomNavigationBar:
           cart.isNotEmpty ? FloatingCartCard(totalCost: totalCost) : null,
       appBar: AppBar(
@@ -113,13 +113,13 @@ class _MenuPageState extends State<MenuPage> {
           ),
         ),
         centerTitle: true,
-        actions: [
+        actions: const [
           Icon(
             CupertinoIcons.search_circle_fill,
-            color: const Color.fromARGB(255, 41, 41, 41),
+            color: Color.fromARGB(255, 41, 41, 41),
             size: 30,
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.all(10.0),
           ),
         ],
@@ -202,7 +202,7 @@ class FloatingCartCard extends StatelessWidget {
     return Theme(
       data: ThemeData(
           canvasColor: Colors.transparent,
-          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             backgroundColor: Colors.transparent,
             elevation: 0,
           )),
@@ -226,17 +226,17 @@ class FloatingCartCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Payment Method',
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: 14,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 18,
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Icon(
                           Icons.payment_rounded,
@@ -266,44 +266,44 @@ class FloatingCartCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                         color: Colors.black,
                       ),
-                      margin: EdgeInsets.symmetric(
+                      margin: const EdgeInsets.symmetric(
                         vertical: 34,
                       ),
-                      padding: EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
                       child: Row(
                         //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
+                          const Text(
                             "Pay",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                             ),
                           ),
-                          Spacer(),
-                          Text(
+                          const Spacer(),
+                          const Text(
                             "24 min",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 12,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 8,
                           ),
-                          Text(
+                          const Text(
                             "•",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 8,
                           ),
                           Text(
                             '\$${totalCost.toStringAsFixed(2)}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 16,
                             ),
@@ -315,23 +315,23 @@ class FloatingCartCard extends StatelessWidget {
                 ),
               ),
               body: ListView(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 40,
                 ),
                 shrinkWrap: true,
                 children: [
-                  Text(
+                  const Text(
                     'We will deliver in \n24 minutes to the address:',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 32,
                   ),
-                  Row(
+                  const Row(
                     children: [
                       Text(
                         '100a Ealing Rd',
@@ -352,7 +352,7 @@ class FloatingCartCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 32,
                   ),
                   Row(
@@ -362,13 +362,13 @@ class FloatingCartCard extends StatelessWidget {
                         'lib/images/Soup.png',
                         height: 80,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 26,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Poke with chicken \nand corn',
                             style: TextStyle(
                               fontSize: 16,
@@ -386,7 +386,8 @@ class FloatingCartCard extends StatelessWidget {
                                       RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(15))),
-                                  backgroundColor: MaterialStatePropertyAll(
+                                  backgroundColor:
+                                      const MaterialStatePropertyAll(
                                     Color.fromARGB(255, 240, 240, 240),
                                   ),
                                 ),
@@ -398,12 +399,12 @@ class FloatingCartCard extends StatelessWidget {
                               ),
 
                               //quantity count
-                              SizedBox(
+                              const SizedBox(
                                 //width: 25,
                                 child: Center(
                                   child: Text(
                                     '1',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -417,7 +418,8 @@ class FloatingCartCard extends StatelessWidget {
                                       RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(15))),
-                                  backgroundColor: MaterialStatePropertyAll(
+                                  backgroundColor:
+                                      const MaterialStatePropertyAll(
                                     Color.fromARGB(255, 240, 240, 240),
                                   ),
                                 ),
@@ -431,8 +433,8 @@ class FloatingCartCard extends StatelessWidget {
                           )
                         ],
                       ),
-                      Spacer(),
-                      Text(
+                      const Spacer(),
+                      const Text(
                         '\$47.00',
                         style: TextStyle(
                           fontSize: 16,
@@ -441,12 +443,12 @@ class FloatingCartCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 32,
                   ),
                   Row(
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 80,
                         height: 80,
                         child: Icon(
@@ -455,17 +457,17 @@ class FloatingCartCard extends StatelessWidget {
                           size: 28,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 26,
                       ),
-                      Text(
+                      const Text(
                         'Cutlery',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -476,7 +478,7 @@ class FloatingCartCard extends StatelessWidget {
                               shape: MaterialStatePropertyAll(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15))),
-                              backgroundColor: MaterialStatePropertyAll(
+                              backgroundColor: const MaterialStatePropertyAll(
                                 Color.fromARGB(255, 240, 240, 240),
                               ),
                             ),
@@ -488,12 +490,12 @@ class FloatingCartCard extends StatelessWidget {
                           ),
 
                           //quantity count
-                          SizedBox(
+                          const SizedBox(
                             //width: 25,
                             child: Center(
                               child: Text(
                                 '1',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -506,7 +508,7 @@ class FloatingCartCard extends StatelessWidget {
                               shape: MaterialStatePropertyAll(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15))),
-                              backgroundColor: MaterialStatePropertyAll(
+                              backgroundColor: const MaterialStatePropertyAll(
                                 Color.fromARGB(255, 240, 240, 240),
                               ),
                             ),
@@ -520,10 +522,10 @@ class FloatingCartCard extends StatelessWidget {
                       )
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 32,
                   ),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
@@ -564,42 +566,42 @@ class FloatingCartCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             color: Colors.black,
           ),
-          margin: EdgeInsets.all(20),
-          padding: EdgeInsets.all(16),
+          margin: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(16),
           child: Row(
             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 "Cart",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),
               ),
-              Spacer(),
-              Text(
+              const Spacer(),
+              const Text(
                 "24 min",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
-              Text(
+              const Text(
                 "•",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 8,
               ),
               Text(
                 '\$${totalCost.toStringAsFixed(2)}',
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),

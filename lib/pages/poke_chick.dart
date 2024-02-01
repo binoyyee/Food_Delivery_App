@@ -335,7 +335,7 @@ class CartButton extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           //Add to cart button

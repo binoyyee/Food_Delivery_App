@@ -8,7 +8,7 @@ class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
@@ -32,7 +32,7 @@ class IntroPage extends StatelessWidget {
             //icon
             Card(
               child: Container(
-                color: Color.fromARGB(25, 24, 151, 255),
+                color: const Color.fromARGB(25, 24, 151, 255),
                 child: Padding(
                   padding: const EdgeInsets.all(25.0),
                   child: Image.asset('lib/images/Fruits-Plate.png'),
@@ -56,7 +56,9 @@ class IntroPage extends StatelessWidget {
 Anywhere
 Anytime''',
               style: GoogleFonts.robotoSlab(
-                  color: Color.fromARGB(255, 0, 0, 0), height: 2, fontSize: 16),
+                  color: const Color.fromARGB(255, 0, 0, 0),
+                  height: 2,
+                  fontSize: 16),
             ),
 
             const SizedBox(

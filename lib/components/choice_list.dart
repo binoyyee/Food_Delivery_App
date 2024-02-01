@@ -34,13 +34,13 @@ class _ChoiceListState extends State<ChoiceList> {
                 padding: const EdgeInsets.fromLTRB(7, 0, 15, 1),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => ChoiceChip(
-                    color: MaterialStatePropertyAll(
+                    color: const MaterialStatePropertyAll(
                       Color.fromARGB(255, 242, 242, 242),
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    side: BorderSide(
+                    side: const BorderSide(
                       width: 0,
                     ),
                     onSelected: (value) {},
