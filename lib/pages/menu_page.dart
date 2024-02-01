@@ -144,17 +144,19 @@ class _MenuPageState extends State<MenuPage> {
 
             const SizedBox(height: 30),
 
-            CarouselSlider(
-              carouselController: CarouselController(),
-              items: [
-                const PopularCard(),
-                const PopularCard(),
-                const PopularCard(),
-              ],
-              options: CarouselOptions(
-                viewportFraction: 1,
-              ),
-            ),
+            // CarouselSlider(
+            //   carouselController: CarouselController(),
+            //   items: [
+            //     const PopularCard(),
+            //     const PopularCard(),
+            //     const PopularCard(),
+            //   ],
+            //   options: CarouselOptions(
+            //     viewportFraction: 1,
+            //   ),
+            // ),
+
+            const PopularCard(),
 
             Center(
               child: CarouselIndicator(

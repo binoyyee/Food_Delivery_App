@@ -91,9 +91,9 @@ class TopAddBar extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 41, 41, 41),
+            color: Color.fromARGB(255, 26, 26, 26),
             borderRadius: BorderRadius.circular(80)),
-        padding: const EdgeInsets.fromLTRB(2, 6, 2, 6),
+        padding: const EdgeInsets.fromLTRB(2, 8, 2, 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

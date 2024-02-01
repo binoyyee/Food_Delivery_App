@@ -61,7 +61,7 @@ class _PokeChickState extends State<PokeChick> {
               onAddAction: widget.onAddAction,
             ),
             body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 36, horizontal: 20),
               child: ListView(
                 //crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -75,11 +75,13 @@ class _PokeChickState extends State<PokeChick> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.food.name,
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: Text(
+                          widget.food.name,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
@@ -102,7 +104,8 @@ class _PokeChickState extends State<PokeChick> {
                     decoration: BoxDecoration(
                         border: Border.all(
                           width: 1,
-                          color: const Color.fromARGB(255, 219, 219, 219),
+                          color: const Color.fromARGB(255, 219, 219, 219)
+                              .withOpacity(0.5),
                         ),
                         borderRadius: BorderRadius.circular(15)),
                     child: Row(
