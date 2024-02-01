@@ -163,6 +163,7 @@ class AddToCart extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
           children: [
             const Text(
               "Add to cart",
@@ -171,9 +172,6 @@ class AddToCart extends StatelessWidget {
                 fontWeight: FontWeight.w400,
                 fontSize: 16,
               ),
-            ),
-            const SizedBox(
-              width: 20,
             ),
             Text(
               text,

@@ -23,7 +23,7 @@ class PokeChick extends StatefulWidget {
 
 class _PokeChickState extends State<PokeChick> {
   //quantity
-  double quantityCount = 1;
+  int quantityCount = 1;
 
   //decrement quantity
   void decrementQuantity() {
@@ -41,233 +41,221 @@ class _PokeChickState extends State<PokeChick> {
     });
   }
 
-  //add to cart
-  // void addToCart() {
-  //   //only add to cart if there is something in the cart
-  //   if (quantityCount > 0) {
-  //     //get access to shop
-  //     final shop = context.read<Shop>();
-
-  //     //add to cart
-  //     shop.addToCart(widget.food, quantityCount);
-
-  //     //show bottom cart
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       // height: MediaQuery.of(context).size.height * 0.86,
       width: double.infinity,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(24),
-          topRight: Radius.circular(24),
-        ),
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          bottomNavigationBar: CartButton(
-            decrementQuantity: decrementQuantity,
-            incrementQuantity: incrementQuantity,
-            quantityCount: quantityCount,
-            onAddAction: widget.onAddAction,
+      child: SafeArea(
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(24),
+            topRight: Radius.circular(24),
           ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: ListView(
-              //crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
-                  child: Image.asset(
-                    widget.food.imagePath,
-                    height: 220,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.food.name,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 15, 15, 0),
-                  child: Text(
-                    widget.food.description,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
-                      color: Color.fromARGB(255, 135, 135, 135),
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            bottomNavigationBar: CartButton(
+              decrementQuantity: decrementQuantity,
+              incrementQuantity: incrementQuantity,
+              quantityCount: quantityCount,
+              onAddAction: widget.onAddAction,
+            ),
+            body: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: ListView(
+                //crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
+                    child: Image.asset(
+                      widget.food.imagePath,
+                      height: 220,
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: const Color.fromARGB(255, 219, 219, 219),
-                      ),
-                      borderRadius: BorderRadius.circular(15)),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
-                            child: Text(
-                              widget.food.cal,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
-                            child: Text(
-                              widget.food.kcal,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
-                            child: Text(
-                              widget.food.gs,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
-                            child: Text(
-                              widget.food.grams,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
-                            child: Text(
-                              widget.food.ps,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
-                            child: Text(
-                              widget.food.proteins,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
-                            child: Text(
-                              widget.food.fs,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
-                            child: Text(
-                              widget.food.fats,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
-                            child: Text(
-                              widget.food.cs,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
-                            child: Text(
-                              widget.food.carbs,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                        ],
+                      Text(
+                        widget.food.name,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(height: 25),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'Add in poke',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 15, 15, 0),
+                    child: Text(
+                      widget.food.description,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
                         fontSize: 16,
+                        color: Color.fromARGB(255, 135, 135, 135),
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.black,
-                        size: 18,
-                      ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
+                          color: const Color.fromARGB(255, 219, 219, 219),
+                        ),
+                        borderRadius: BorderRadius.circular(15)),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
+                              child: Text(
+                                widget.food.cal,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
+                              child: Text(
+                                widget.food.kcal,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
+                              child: Text(
+                                widget.food.gs,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
+                              child: Text(
+                                widget.food.grams,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
+                              child: Text(
+                                widget.food.ps,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
+                              child: Text(
+                                widget.food.proteins,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
+                              child: Text(
+                                widget.food.fs,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
+                              child: Text(
+                                widget.food.fats,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 25, 0, 5),
+                              child: Text(
+                                widget.food.cs,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 25),
+                              child: Text(
+                                widget.food.carbs,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  const SizedBox(height: 25),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Add in poke',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          color: Colors.black,
+                          size: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -281,12 +269,13 @@ class CartButton extends StatelessWidget {
     super.key,
     required this.decrementQuantity,
     required this.incrementQuantity,
-    required this.quantityCount, required this.onAddAction,
+    required this.quantityCount,
+    required this.onAddAction,
   });
 
   final VoidCallback decrementQuantity;
   final VoidCallback incrementQuantity;
-  final double quantityCount;
+  final int quantityCount;
   final Function(double) onAddAction;
 
   @override
@@ -321,7 +310,7 @@ class CartButton extends StatelessWidget {
 
                 //quantity count
                 SizedBox(
-                  width: 20,
+                  //width: 25,
                   child: Center(
                     child: Text(
                       quantityCount.toString(),
@@ -343,11 +332,18 @@ class CartButton extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(
+            width: 10,
+          ),
           //Add to cart button
-          AddToCart(onTap: () {
-            onAddAction(45);
-            Navigator.of(context).pop();
-          }, text: '\$47.00'),
+          Expanded(
+            child: AddToCart(
+                onTap: () {
+                  onAddAction(45);
+                  Navigator.of(context).pop();
+                },
+                text: '\$47.00'),
+          ),
         ],
       ),
     );

@@ -19,6 +19,7 @@ class FoodTile extends StatelessWidget {
           barrierColor: Colors.black.withOpacity(0.7),
           showDragHandle: true,
           enableDrag: true,
+          useSafeArea: true,
           isScrollControlled: true,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
@@ -69,9 +70,7 @@ class FoodTile extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    FoodTileCost(
-                      text: '\$${food.price}'
-                    ),
+                    FoodTileCost(text: '\$${food.price}'),
                     const SizedBox(
                       width: 30,
                     ),
