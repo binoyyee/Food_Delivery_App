@@ -115,34 +115,30 @@ class TopAddBar extends StatelessWidget {
 
 class FoodTileCost extends StatelessWidget {
   final String text;
-  final void Function()? onTap;
 
-  const FoodTileCost({super.key, required this.text, required this.onTap});
+  const FoodTileCost({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 241, 241, 241),
-            borderRadius: BorderRadius.circular(80)),
-        padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            //text
-            Text(
-              text,
-              style: const TextStyle(
-                color: Color.fromARGB(255, 26, 26, 26),
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
+    return Container(
+      decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 241, 241, 241),
+          borderRadius: BorderRadius.circular(80)),
+      padding: const EdgeInsets.fromLTRB(12, 6, 12, 6),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          //text
+          Text(
+            text,
+            style: const TextStyle(
+              color: Color.fromARGB(255, 26, 26, 26),
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -158,40 +154,36 @@ class AddToCart extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 60, 20, 0),
-        child: Container(
-          //color: Colors.transparent,
-          height: 60,
-          width: 200,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15), color: Colors.black),
-          //color: const Color.fromARGB(255, 0, 0, 0),
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              const Text(
-                "Add to cart",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                ),
+      child: Container(
+        //color: Colors.transparent,
+        height: 60,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15), color: Colors.black),
+        //color: const Color.fromARGB(255, 0, 0, 0),
+        padding: const EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const Text(
+              "Add to cart",
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
               ),
-              const SizedBox(
-                width: 20,
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Text(
+              text,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w400,
+                fontSize: 16,
               ),
-              Text(
-                text,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

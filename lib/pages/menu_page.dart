@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:food_delivery_app/components/button.dart';
@@ -6,6 +7,7 @@ import 'package:food_delivery_app/components/food.dart';
 import 'package:food_delivery_app/components/food_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:carousel_indicator/carousel_indicator.dart';
 
 import '../components/popular_card.dart';
 import '../components/shop.dart';
@@ -25,6 +27,27 @@ class _MenuPageState extends State<MenuPage> {
   //   final shop = context.read<Shop>();
   //   final foodMenu = shop.foodMenu;
   // }
+
+  List<double> cart = [45];
+  double totalCost = 0;
+
+  void addItem(double item) => setState(() {
+        cart.add(item);
+        calculateCost();
+      });
+
+  void calculateCost() {
+    setState(() {
+      totalCost =
+          cart.fold(0.00, (previousValue, element) => previousValue + element);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    calculateCost();
+  }
 
   //food menu
   List foodMenu = [
@@ -70,7 +93,10 @@ class _MenuPageState extends State<MenuPage> {
     final shop = context.read<Shop>();
     final foodMenu = shop.foodMenu;
     return Scaffold(
+      extendBody: true,
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      bottomNavigationBar:
+          cart.isNotEmpty ? FloatingCartCard(totalCost: totalCost) : null,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -118,7 +144,26 @@ class _MenuPageState extends State<MenuPage> {
 
             const SizedBox(height: 30),
 
-            const PopularCard(),
+            CarouselSlider(
+              carouselController: CarouselController(),
+              items: [
+                const PopularCard(),
+                const PopularCard(),
+                const PopularCard(),
+              ],
+              options: CarouselOptions(
+                viewportFraction: 1,
+              ),
+            ),
+
+            Center(
+              child: CarouselIndicator(
+                count: 3,
+                index: 1,
+                color: Colors.grey,
+                activeColor: Colors.black,
+              ),
+            ),
 
             const SizedBox(height: 30),
 
@@ -132,9 +177,56 @@ class _MenuPageState extends State<MenuPage> {
               itemCount: foodMenu.length,
               itemBuilder: (context, index) => FoodTile(
                 food: foodMenu[index],
+                onAddAction: addItem,
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class FloatingCartCard extends StatelessWidget {
+  const FloatingCartCard({
+    super.key,
+    required this.totalCost,
+  });
+
+  final double totalCost;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: ThemeData(
+          canvasColor: Colors.transparent,
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+          )),
+      child: GestureDetector(
+        onTap: () => showModalBottomSheet(
+          context: context,
+          showDragHandle: true,
+          builder:(context) => Scaffold(),
+        ),
+        child: Container(
+          margin: EdgeInsets.all(20),
+          padding: EdgeInsets.all(16),
+          color: Colors.black,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Cart",
+                style: TextStyle(color: Colors.white),
+              ),
+              Text(
+                totalCost.toString(),
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );

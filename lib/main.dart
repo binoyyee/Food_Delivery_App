@@ -22,6 +22,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const IntroPage(),
+      theme: ThemeData(
+        bottomSheetTheme: BottomSheetThemeData(
+          modalBackgroundColor: Colors.transparent,
+          dragHandleColor: Colors.white,
+        )
+      ),
       routes: {
         '/intropage': (context) => const IntroPage(),
         '/menupage': (context) => const MenuPage(),
