@@ -7,7 +7,8 @@ class CartPage extends StatelessWidget {
   const CartPage({
     super.key,
     required this.totalCost,
-    required this.cart, required this.removeAction,
+    required this.cart,
+    required this.removeAction,
   });
 
   final List<Food> cart;
@@ -156,7 +157,12 @@ class CartPage extends StatelessWidget {
           ),
           Column(
             mainAxisSize: MainAxisSize.min,
-            children: cart.map((food) => CartItem(food: food, removeAction: removeAction)).toList(),
+            //Logic to implement display of all food items in cart
+            //For every food in cart, it will create cartItem of food
+            //List of food converted to List of Cart Item (widgets)
+            children: cart
+                .map((food) => CartItem(food: food, removeAction: removeAction))
+                .toList(),
           ),
           const SizedBox(
             height: 12,
@@ -278,7 +284,8 @@ class CartPage extends StatelessWidget {
 class CartItem extends StatelessWidget {
   const CartItem({
     super.key,
-    required this.food, required this.removeAction,
+    required this.food,
+    required this.removeAction,
   });
 
   final Food food;
@@ -328,7 +335,7 @@ class CartItem extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-      
+
                     //quantity count
                     const SizedBox(
                       //width: 25,

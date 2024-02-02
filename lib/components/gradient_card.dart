@@ -18,44 +18,47 @@ class GradientCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 258,
-      width: 375,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [fromC, toC],
+    return SizedBox(
+      child: Container(
+        padding: const EdgeInsets.all(1),
+        height: 216,
+        width: 375,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [fromC, toC],
+          ),
+          borderRadius: BorderRadius.circular(20),
         ),
-        borderRadius: BorderRadius.circular(20),
-      ),
-      //margin: const EdgeInsets.symmetric(horizontal: 15),
-      //padding: const EdgeInsets.all(1),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 180, 0, 25),
-                  child: Text(
-                    name,
-                    style: GoogleFonts.roboto(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 31, 31, 31),
+        //margin: const EdgeInsets.symmetric(horizontal: 15),
+        //padding: const EdgeInsets.all(1),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 144, 0, 0),
+                    child: Text(
+                      name,
+                      style: GoogleFonts.roboto(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(255, 31, 31, 31),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 180, 20, 25),
-                child: PromoCostButton(
-                  text: "\$${price.toStringAsFixed(2)}",
-                  onTap: () {},
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 144, 20, 0),
+                  child: PromoCostButton(
+                    text: "\$${price.toStringAsFixed(2)}",
+                    onTap: () {},
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

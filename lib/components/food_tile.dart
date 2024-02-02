@@ -32,15 +32,12 @@ class FoodTile extends StatelessWidget {
           },
         );
       },
+      //Design of Food tile list
       child: Container(
         width: 400,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
         ),
-        // margin: const EdgeInsets.symmetric(
-        //   vertical: 1,
-        //   horizontal: 1,
-        // ),
         padding: const EdgeInsets.all(15),
         child: Row(
           children: [

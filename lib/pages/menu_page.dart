@@ -1,4 +1,3 @@
-//import 'package:carousel_slider/carousel_slider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,13 +6,9 @@ import 'package:food_delivery_app/components/choice_list.dart';
 import 'package:food_delivery_app/components/food.dart';
 import 'package:food_delivery_app/components/food_tile.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:carousel_indicator/carousel_indicator.dart';
-
 import '../components/floating_cart_card.dart';
 import '../components/popular_card.dart';
-import '../components/shop.dart';
-import 'cart_page.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -23,44 +18,41 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-  //navigate to food item details page
-
-  // void navigateToFoodDetails(int index) {
-  //   //get the shop and its menu
-  //   final shop = context.read<Shop>();
-  //   final foodMenu = shop.foodMenu;
-  // }
-
   late CarouselController _controller;
   int currentIndex = 0;
 
+  //Logic for carousel
   void nextItem() {
     _controller.nextPage();
     setState(() {
-      currentIndex +=1 ;
+      currentIndex += 1;
     });
   }
 
   void prevItem() {
     _controller.previousPage();
     setState(() {
-      currentIndex -=1 ;
+      currentIndex -= 1;
     });
   }
 
-  List<Food> cart = [];
-  double totalCost = 0;
+  //Cart Bucket Logic
+  List<Food> cart = []; //Cart = List of Food, Initially empty
+  double totalCost = 0; //Cart cost initial = 0
 
+  //Logic for adding food in cart
   void addItem(Food item) => setState(() {
         cart.add(item);
         calculateCost();
       });
 
+  //Logic for removing food from cart
   void removeItem(Food item) => setState(() {
         cart.remove(item);
         calculateCost();
       });
 
+  //Logic for calculating new total cost
   void calculateCost() {
     setState(() {
       totalCost = cart.fold(
@@ -75,7 +67,7 @@ class _MenuPageState extends State<MenuPage> {
     calculateCost();
   }
 
-  //food menu
+  //food menu used to display verticle food list
   List foodMenu = [
     //Poke with chicken using Soup photo
     Food(
@@ -105,13 +97,12 @@ class _MenuPageState extends State<MenuPage> {
       fs: '12',
       cs: '8',
     ),
-
-    //Salad with radishes, tomatoes and mushrooms using Dessert photo
   ];
 
+  //Used in carousel cards
   List<Food> popular = [
     Food(
-      name: 'Two Slices of Pizza with Delicious Salami',
+      name: 'Two slices of pizza \nwith delicious salami',
       price: 12.40,
       imagePath: 'lib/images/Salad2.png',
       calories: '225 Kcal',
@@ -136,22 +127,18 @@ class _MenuPageState extends State<MenuPage> {
     )
   ];
 
-  set setfoodMenu(List foodMenu) {
-    _MenuPageState().foodMenu = foodMenu;
-  }
-
-  List get getfoodMenu => _MenuPageState().foodMenu;
-
   @override
   Widget build(BuildContext context) {
-    //get the shop and its menu
-    final shop = context.read<Shop>();
-    final foodMenu = shop.foodMenu;
     return Scaffold(
       extendBody: true,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      //Logic - When cart is empty, it is not displayed
       bottomNavigationBar: cart.isNotEmpty
-          ? FloatingCartCard(totalCost: totalCost, cart: cart, removeAction: removeItem,)
+          ? FloatingCartCard(
+              totalCost: totalCost,
+              cart: cart,
+              removeAction: removeItem,
+            )
           : null,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -182,7 +169,6 @@ class _MenuPageState extends State<MenuPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          //shrinkWrap: true,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             //Hits of the week
@@ -205,8 +191,8 @@ class _MenuPageState extends State<MenuPage> {
               items: popular
                   .map(
                     (e) => PopularCard(
-                      fromC: Color.fromARGB(255, 170, 215, 255),
-                      toC: Color.fromARGB(255, 209, 182, 255),
+                      fromC: const Color.fromARGB(255, 170, 215, 255),
+                      toC: const Color.fromARGB(255, 209, 182, 255),
                       name: e.name,
                       price: e.price,
                       image: e.imagePath,
@@ -216,18 +202,15 @@ class _MenuPageState extends State<MenuPage> {
               options: CarouselOptions(
                 viewportFraction: 1,
                 aspectRatio: 16 / 9,
-                // onPageChanged: (index, reason) => reason == CarouselPageChangedReason.manual ? nextItem() : prevItem(),
               ),
             ),
 
-            // const PopularCard(
-            //   fromC: Color.fromARGB(255, 170, 215, 255),
-            //   toC: Color.fromARGB(255, 209, 182, 255),
-            // ),
+            const SizedBox(height: 10),
 
             Center(
               child: CarouselIndicator(
-                count: 3,
+                space: 10,
+                count: 4,
                 index: currentIndex,
                 color: Colors.grey,
                 activeColor: Colors.black,
@@ -242,7 +225,8 @@ class _MenuPageState extends State<MenuPage> {
 
             ListView.builder(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              physics:
+                  const NeverScrollableScrollPhysics(), //List within SingleChildScrollView, hence need this for expected behaviour
               itemCount: foodMenu.length,
               itemBuilder: (context, index) => FoodTile(
                 food: foodMenu[index],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 //import 'package:food_delivery_app/components/food.dart';
 //import 'package:food_delivery_app/pages/menu_page.dart';
 
@@ -6,6 +7,7 @@ class MyButton extends StatelessWidget {
   final String text;
   final void Function()? onTap;
 
+  //button for Get Started on Intro Page
   const MyButton({super.key, required this.text, required this.onTap});
 
   @override
@@ -14,7 +16,7 @@ class MyButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 195, 228, 255),
+            color: Color.fromARGB(255, 0, 0, 0),
             border: Border.all(
               width: 1,
               color: const Color.fromARGB(255, 202, 202, 202),
@@ -27,20 +29,11 @@ class MyButton extends StatelessWidget {
             //text
             Text(
               text,
-              style: const TextStyle(
-                color: Color.fromARGB(255, 0, 34, 63),
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
+              style: GoogleFonts.lexendDeca(
+                color: const Color.fromARGB(255, 255, 255, 255),
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
               ),
-            ),
-
-            const SizedBox(
-              width: 10,
-            ),
-            //icon
-            const Icon(
-              Icons.arrow_forward,
-              color: Color.fromARGB(255, 0, 34, 63),
             ),
           ],
         ),
@@ -49,6 +42,7 @@ class MyButton extends StatelessWidget {
   }
 }
 
+//Button for Popular card item cost
 class PromoCostButton extends StatelessWidget {
   final String text;
   final void Function()? onTap;
@@ -79,6 +73,7 @@ class PromoCostButton extends StatelessWidget {
   }
 }
 
+//Button for Keus Office Location on Top
 class TopAddBar extends StatelessWidget {
   final String text;
   final void Function()? onTap;
@@ -113,6 +108,7 @@ class TopAddBar extends StatelessWidget {
   }
 }
 
+//Button for Cost of Food Item in List
 class FoodTileCost extends StatelessWidget {
   final String text;
 
@@ -144,6 +140,7 @@ class FoodTileCost extends StatelessWidget {
   }
 }
 
+//Add to Cart Button
 class AddToCart extends StatelessWidget {
   final String text;
   final void Function()? onTap;

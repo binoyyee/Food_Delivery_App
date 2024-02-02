@@ -20,20 +20,23 @@ class PopularCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       height: 270,
       child: Stack(alignment: Alignment.topCenter, children: [
         Positioned(
           bottom: 0,
-          child: GradientCard(fromC: fromC, toC: toC, name: name, price: price,),
+          child: GradientCard(
+            fromC: fromC,
+            toC: toC,
+            name: name,
+            price: price,
+          ),
         ),
         Positioned(
           top: -1,
-          //left: 110,
-
           child: Image.asset(
             image,
-            height: 170,
+            height: 146,
           ),
         ),
       ]),
