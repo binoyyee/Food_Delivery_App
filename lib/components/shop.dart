@@ -6,7 +6,7 @@ class Shop extends ChangeNotifier {
     //Poke with chicken using Soup photo
     Food(
       name: 'Poke with chicken',
-      price: '47.00',
+      price: 47.00,
       imagePath: 'lib/images/Soup.png',
       calories: '325 Kcal',
       description:
@@ -21,7 +21,7 @@ class Shop extends ChangeNotifier {
     //Salad with radishes, tomatoes and mushrooms using Dessert photo
     Food(
       name: 'Salad with radishes, tomatoes and mushrooms',
-      price: '35.00',
+      price: 35.00,
       imagePath: 'lib/images/Indian-Chutney.png',
       calories: '225 Kcal',
       description: 'Classic Salad with Beans sauce',

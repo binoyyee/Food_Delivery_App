@@ -15,7 +15,7 @@ class PokeChick extends StatefulWidget {
   });
 
   final Food food;
-  final Function(double) onAddAction;
+  final Function(Food) onAddAction;
 
   @override
   State<PokeChick> createState() => _PokeChickState();
@@ -59,6 +59,7 @@ class _PokeChickState extends State<PokeChick> {
               incrementQuantity: incrementQuantity,
               quantityCount: quantityCount,
               onAddAction: widget.onAddAction,
+              food: widget.food,
             ),
             body: Padding(
               padding: const EdgeInsets.symmetric(vertical: 36, horizontal: 20),
@@ -273,13 +274,14 @@ class CartButton extends StatelessWidget {
     required this.decrementQuantity,
     required this.incrementQuantity,
     required this.quantityCount,
-    required this.onAddAction,
+    required this.onAddAction, required this.food,
   });
 
   final VoidCallback decrementQuantity;
   final VoidCallback incrementQuantity;
   final int quantityCount;
-  final Function(double) onAddAction;
+  final Food food;
+  final Function(Food) onAddAction;
 
   @override
   Widget build(BuildContext context) {
@@ -342,10 +344,10 @@ class CartButton extends StatelessWidget {
           Expanded(
             child: AddToCart(
                 onTap: () {
-                  onAddAction(45);
+                  onAddAction(food);
                   Navigator.of(context).pop();
                 },
-                text: '\$47.00'),
+                text: '\$${food.price.toStringAsFixed(2)}'),
           ),
         ],
       ),

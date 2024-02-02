@@ -1,6 +1,6 @@
 class Food {
   String name;
-  String price;
+  double price;
   String imagePath;
   String calories;
   String description;
@@ -28,19 +28,19 @@ class Food {
     required this.cs,
   });
 
-  String get _name => name;
-  String get _price => price;
-  String get _imagePath => imagePath;
-  String get _calories => calories;
-  String get _description => description;
-  String get _cal => cal;
-  String get _gs => gs;
-  String get _ps => ps;
-  String get _fs => fs;
-  String get _cs => cs;
-  String get _kcal => kcal;
-  String get _grams => grams;
-  String get _proteins => proteins;
-  String get _fats => fats;
-  String get _carbs => carbs;
+  // String get _name => name;
+  // String get _price => price;
+  // String get _imagePath => imagePath;
+  // String get _calories => calories;
+  // String get _description => description;
+  // String get _cal => cal;
+  // String get _gs => gs;
+  // String get _ps => ps;
+  // String get _fs => fs;
+  // String get _cs => cs;
+  // String get _kcal => kcal;
+  // String get _grams => grams;
+  // String get _proteins => proteins;
+  // String get _fats => fats;
+  // String get _carbs => carbs;
 }

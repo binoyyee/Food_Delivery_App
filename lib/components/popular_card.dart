@@ -4,7 +4,18 @@ import 'package:food_delivery_app/components/gradient_card.dart';
 class PopularCard extends StatelessWidget {
   const PopularCard({
     super.key,
+    required this.fromC,
+    required this.toC,
+    required this.name,
+    required this.price,
+    required this.image,
   });
+
+  final Color fromC;
+  final Color toC;
+  final String name;
+  final double price;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -12,16 +23,16 @@ class PopularCard extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 15),
       height: 270,
       child: Stack(alignment: Alignment.topCenter, children: [
-        const Positioned(
+        Positioned(
           bottom: 0,
-          child: GradientCard(),
+          child: GradientCard(fromC: fromC, toC: toC, name: name, price: price,),
         ),
         Positioned(
           top: -1,
           //left: 110,
 
           child: Image.asset(
-            'lib/images/Salad2.png',
+            image,
             height: 170,
           ),
         ),

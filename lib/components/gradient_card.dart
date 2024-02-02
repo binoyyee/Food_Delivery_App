@@ -5,7 +5,16 @@ import 'package:google_fonts/google_fonts.dart';
 class GradientCard extends StatelessWidget {
   const GradientCard({
     super.key,
+    required this.fromC,
+    required this.toC,
+    required this.name,
+    required this.price,
   });
+
+  final Color fromC;
+  final Color toC;
+  final String name;
+  final double price;
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +22,8 @@ class GradientCard extends StatelessWidget {
       height: 258,
       width: 375,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [
-            Color.fromARGB(255, 170, 215, 255),
-            Color.fromARGB(255, 209, 182, 255),
-          ],
+        gradient: LinearGradient(
+          colors: [fromC, toC],
         ),
         borderRadius: BorderRadius.circular(20),
       ),
@@ -27,23 +33,23 @@ class GradientCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 180, 0, 25),
-                child: Text(
-                  '''Two slices of pizza 
-with delicious salami''',
-                  style: GoogleFonts.roboto(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: const Color.fromARGB(255, 31, 31, 31),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 180, 0, 25),
+                  child: Text(
+                    name,
+                    style: GoogleFonts.roboto(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 31, 31, 31),
+                    ),
                   ),
                 ),
               ),
-              const Spacer(),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 180, 20, 25),
                 child: PromoCostButton(
-                  text: "\$12.40",
+                  text: "\$${price.toStringAsFixed(2)}",
                   onTap: () {},
                 ),
               ),

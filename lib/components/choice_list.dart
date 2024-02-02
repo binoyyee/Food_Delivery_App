@@ -18,39 +18,43 @@ class _ChoiceListState extends State<ChoiceList> {
           const SizedBox(
             width: 15,
           ),
-          ActionChip(
-            onPressed: () {},
-            //backgroundColor: Color.fromARGB(255, 235, 235, 235),
-            labelStyle: const TextStyle(
-              color: Color.fromARGB(255, 31, 31, 31),
+          ChoiceChip(
+            color: MaterialStatePropertyAll(
+              Color.fromARGB(255, 241, 241, 241),
             ),
-            label: const Icon(
+            onSelected: (value) {},
+            //backgroundColor: Color.fromARGB(255, 235, 235, 235),
+            label: Icon(
               Icons.filter_list_outlined,
+              color: Color.fromARGB(255, 31, 31, 31),
               size: 20,
             ),
+            selectedColor: Color.fromARGB(255, 0, 0, 0),
+            showCheckmark: false,
+            selected: true,
           ),
           Expanded(
             child: ListView.separated(
                 padding: const EdgeInsets.fromLTRB(7, 0, 15, 1),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) => ChoiceChip(
-                    color: const MaterialStatePropertyAll(
-                      Color.fromARGB(255, 242, 242, 242),
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    side: const BorderSide(
-                      width: 0,
-                    ),
-                    onSelected: (value) {},
-                    label: Text(
-                      filters[index],
-                      style: const TextStyle(
-                        color: Color.fromARGB(255, 31, 31, 31),
+                      color: const MaterialStatePropertyAll(
+                        Color.fromARGB(255, 241, 241, 241),
                       ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      onSelected: (value) {},
+                      label: Text(
+                        filters[index],
+                        style: const TextStyle(
+                          color: Color.fromARGB(255, 31, 31, 31),
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      showCheckmark: false,
+                      selected: true,
                     ),
-                    selected: false),
                 separatorBuilder: (context, index) => const SizedBox(
                       width: 7,
                     ),

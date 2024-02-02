@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class FoodTile extends StatelessWidget {
   final Food food;
-  final Function(double) onAddAction;
+  final Function(Food) onAddAction;
 
   const FoodTile({super.key, required this.food, required this.onAddAction});
 
@@ -70,7 +70,7 @@ class FoodTile extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    FoodTileCost(text: '\$${food.price}'),
+                    FoodTileCost(text: '\$${food.price.toStringAsFixed(2)}'),
                     const SizedBox(
                       width: 30,
                     ),

@@ -1,4 +1,5 @@
 //import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:food_delivery_app/components/button.dart';
@@ -9,8 +10,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_indicator/carousel_indicator.dart';
 
+import '../components/floating_cart_card.dart';
 import '../components/popular_card.dart';
 import '../components/shop.dart';
+import 'cart_page.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -28,24 +31,47 @@ class _MenuPageState extends State<MenuPage> {
   //   final foodMenu = shop.foodMenu;
   // }
 
-  List<double> cart = [45];
+  late CarouselController _controller;
+  int currentIndex = 0;
+
+  void nextItem() {
+    _controller.nextPage();
+    setState(() {
+      currentIndex +=1 ;
+    });
+  }
+
+  void prevItem() {
+    _controller.previousPage();
+    setState(() {
+      currentIndex -=1 ;
+    });
+  }
+
+  List<Food> cart = [];
   double totalCost = 0;
 
-  void addItem(double item) => setState(() {
+  void addItem(Food item) => setState(() {
         cart.add(item);
+        calculateCost();
+      });
+
+  void removeItem(Food item) => setState(() {
+        cart.remove(item);
         calculateCost();
       });
 
   void calculateCost() {
     setState(() {
-      totalCost =
-          cart.fold(0.00, (previousValue, element) => previousValue + element);
+      totalCost = cart.fold(
+          0.00, (previousValue, element) => previousValue + element.price);
     });
   }
 
   @override
   void initState() {
     super.initState();
+    _controller = CarouselControllerImpl();
     calculateCost();
   }
 
@@ -54,7 +80,7 @@ class _MenuPageState extends State<MenuPage> {
     //Poke with chicken using Soup photo
     Food(
       name: 'Poke with chicken',
-      price: '47.00',
+      price: 47.00,
       imagePath: 'lib/images/Soup.png',
       calories: '325 Kcal',
       description:
@@ -69,7 +95,7 @@ class _MenuPageState extends State<MenuPage> {
     //Salad with radishes, tomatoes and mushrooms using Dessert photo
     Food(
       name: 'Salad with radishes, tomatoes and mushrooms',
-      price: '35.00',
+      price: 35.00,
       imagePath: 'lib/images/Indian-Chutney.png',
       calories: '225 Kcal',
       description: 'Classic Salad with Beans sauce',
@@ -79,6 +105,35 @@ class _MenuPageState extends State<MenuPage> {
       fs: '12',
       cs: '8',
     ),
+
+    //Salad with radishes, tomatoes and mushrooms using Dessert photo
+  ];
+
+  List<Food> popular = [
+    Food(
+      name: 'Two Slices of Pizza with Delicious Salami',
+      price: 12.40,
+      imagePath: 'lib/images/Salad2.png',
+      calories: '225 Kcal',
+      description: 'Classic Salad with Beans sauce',
+      cal: '225',
+      gs: '60',
+      ps: '19',
+      fs: '12',
+      cs: '8',
+    ),
+    Food(
+      name: 'Salad with Egg,\nCheese and Shrimps',
+      price: 9.25,
+      imagePath: 'lib/images/Pizza.png',
+      calories: '225 Kcal',
+      description: 'Classic Salad with Beans sauce',
+      cal: '225',
+      gs: '60',
+      ps: '19',
+      fs: '12',
+      cs: '8',
+    )
   ];
 
   set setfoodMenu(List foodMenu) {
@@ -95,8 +150,9 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
       extendBody: true,
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      bottomNavigationBar:
-          cart.isNotEmpty ? FloatingCartCard(totalCost: totalCost) : null,
+      bottomNavigationBar: cart.isNotEmpty
+          ? FloatingCartCard(totalCost: totalCost, cart: cart, removeAction: removeItem,)
+          : null,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -144,24 +200,35 @@ class _MenuPageState extends State<MenuPage> {
 
             const SizedBox(height: 30),
 
-            // CarouselSlider(
-            //   carouselController: CarouselController(),
-            //   items: [
-            //     const PopularCard(),
-            //     const PopularCard(),
-            //     const PopularCard(),
-            //   ],
-            //   options: CarouselOptions(
-            //     viewportFraction: 1,
-            //   ),
-            // ),
+            CarouselSlider(
+              carouselController: _controller,
+              items: popular
+                  .map(
+                    (e) => PopularCard(
+                      fromC: Color.fromARGB(255, 170, 215, 255),
+                      toC: Color.fromARGB(255, 209, 182, 255),
+                      name: e.name,
+                      price: e.price,
+                      image: e.imagePath,
+                    ),
+                  )
+                  .toList(),
+              options: CarouselOptions(
+                viewportFraction: 1,
+                aspectRatio: 16 / 9,
+                // onPageChanged: (index, reason) => reason == CarouselPageChangedReason.manual ? nextItem() : prevItem(),
+              ),
+            ),
 
-            const PopularCard(),
+            // const PopularCard(
+            //   fromC: Color.fromARGB(255, 170, 215, 255),
+            //   toC: Color.fromARGB(255, 209, 182, 255),
+            // ),
 
             Center(
               child: CarouselIndicator(
                 count: 3,
-                index: 1,
+                index: currentIndex,
                 color: Colors.grey,
                 activeColor: Colors.black,
               ),
@@ -183,431 +250,6 @@ class _MenuPageState extends State<MenuPage> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class FloatingCartCard extends StatelessWidget {
-  const FloatingCartCard({
-    super.key,
-    required this.totalCost,
-  });
-
-  final double totalCost;
-
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-          canvasColor: Colors.transparent,
-          bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-          )),
-      child: GestureDetector(
-        onTap: () => showModalBottomSheet(
-          useSafeArea: true,
-          isScrollControlled: true,
-          context: context,
-          showDragHandle: true,
-          builder: (context) => ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(24),
-              topRight: Radius.circular(24),
-            ),
-            child: Scaffold(
-              bottomNavigationBar: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Payment Method',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 18,
-                    ),
-                    const Row(
-                      children: [
-                        Icon(
-                          Icons.payment_rounded,
-                          size: 26,
-                          color: Colors.black,
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        Text(
-                          'Apple pay',
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Spacer(),
-                        Icon(
-                          Icons.arrow_forward_ios_rounded,
-                          color: Colors.black,
-                          size: 14,
-                        ),
-                      ],
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.black,
-                      ),
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 34,
-                      ),
-                      padding: const EdgeInsets.all(16),
-                      child: Row(
-                        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Pay",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                          const Spacer(),
-                          const Text(
-                            "24 min",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          const Text(
-                            "•",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Text(
-                            '\$${totalCost.toStringAsFixed(2)}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              body: ListView(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 40,
-                ),
-                shrinkWrap: true,
-                children: [
-                  const Text(
-                    'We will deliver in \n24 minutes to the address:',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  const Row(
-                    children: [
-                      Text(
-                        '100a Ealing Rd',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 16,
-                      ),
-                      Text(
-                        'Change Address',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'lib/images/Soup.png',
-                        height: 80,
-                      ),
-                      const SizedBox(
-                        width: 26,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Poke with chicken \nand corn',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              //quantity
-                              //minus button
-                              IconButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStatePropertyAll(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15))),
-                                  backgroundColor:
-                                      const MaterialStatePropertyAll(
-                                    Color.fromARGB(255, 240, 240, 240),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.remove,
-                                  color: Colors.black,
-                                ),
-                              ),
-
-                              //quantity count
-                              const SizedBox(
-                                //width: 25,
-                                child: Center(
-                                  child: Text(
-                                    '1',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              //plus button
-                              IconButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStatePropertyAll(
-                                      RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15))),
-                                  backgroundColor:
-                                      const MaterialStatePropertyAll(
-                                    Color.fromARGB(255, 240, 240, 240),
-                                  ),
-                                ),
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.add,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                      const Spacer(),
-                      const Text(
-                        '\$47.00',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  Row(
-                    children: [
-                      const SizedBox(
-                        width: 80,
-                        height: 80,
-                        child: Icon(
-                          Icons.restaurant,
-                          color: Colors.black,
-                          size: 28,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 26,
-                      ),
-                      const Text(
-                        'Cutlery',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          //quantity
-                          //minus button
-                          IconButton(
-                            style: ButtonStyle(
-                              shape: MaterialStatePropertyAll(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15))),
-                              backgroundColor: const MaterialStatePropertyAll(
-                                Color.fromARGB(255, 240, 240, 240),
-                              ),
-                            ),
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.remove,
-                              color: Colors.black,
-                            ),
-                          ),
-
-                          //quantity count
-                          const SizedBox(
-                            //width: 25,
-                            child: Center(
-                              child: Text(
-                                '1',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          ),
-                          //plus button
-                          IconButton(
-                            style: ButtonStyle(
-                              shape: MaterialStatePropertyAll(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15))),
-                              backgroundColor: const MaterialStatePropertyAll(
-                                Color.fromARGB(255, 240, 240, 240),
-                              ),
-                            ),
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.add,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 32,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Delivery',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Text(
-                            'Free delivery from \$30',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                            ),
-                          )
-                        ],
-                      ),
-                      Text(
-                        '\$0.00',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Colors.black,
-          ),
-          margin: const EdgeInsets.all(20),
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                "Cart",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-              const Spacer(),
-              const Text(
-                "24 min",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              const Text(
-                "•",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              Text(
-                '\$${totalCost.toStringAsFixed(2)}',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
