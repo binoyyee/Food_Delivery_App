@@ -63,6 +63,8 @@ The code redundancy is close to negligible and clean code concepts have been use
 
 Functional elements based on the scope of this project are dynamically generated and not static or hard coded. 
 
+Comments have been added specific to the logic implemented in parts of code for easier understanding of implementation. 
+
 
 ## Roadmap for future scope depending upon journey details
 
